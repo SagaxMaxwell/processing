@@ -1,9 +1,4 @@
-"""Spark Structured Streaming：统计门店实时 GMV。
-
-场景：
-    O2O 零售系统的 pos-service 将门店收银订单写入 Kafka。Spark 按 5 分钟窗口
-    统计每个门店 GMV，结果可替换为写入 MySQL、ClickHouse 或 Kafka。
-"""
+"""统计门店 5 分钟 GMV。"""
 
 from __future__ import annotations
 
@@ -11,17 +6,6 @@ import argparse
 
 
 def build_query(bootstrap_servers: str, topic: str, checkpoint: str):
-    """构建 Structured Streaming 查询。
-
-    Args:
-        bootstrap_servers: Kafka Broker 地址。
-        topic: Kafka 主题名。
-        checkpoint: checkpoint 目录。
-
-    Returns:
-        StreamingQuery 实例。
-    """
-
     from pyspark.sql import SparkSession
     from pyspark.sql.functions import col, from_json, sum as spark_sum, to_timestamp, window
     from pyspark.sql.types import DoubleType, StringType, StructField, StructType
@@ -66,8 +50,6 @@ def build_query(bootstrap_servers: str, topic: str, checkpoint: str):
 
 
 def main() -> None:
-    """解析命令行参数并启动流任务。"""
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--bootstrap", required=True)
     parser.add_argument("--topic", default="store_orders")

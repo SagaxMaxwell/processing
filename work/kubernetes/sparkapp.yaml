@@ -1,0 +1,39 @@
+apiVersion: sparkoperator.k8s.io/v1beta2
+kind: SparkApplication
+metadata:
+  name: sku-sales-daily
+  namespace: data
+spec:
+  type: Python
+  mode: cluster
+  image: registry.example.com/data/spark-jobs:2026.07
+  imagePullPolicy: IfNotPresent
+  mainApplicationFile: local:///opt/jobs/work/spark/sales.py
+  sparkVersion: 4.1.2
+  restartPolicy:
+    type: OnFailure
+    onFailureRetries: 2
+    onFailureRetryInterval: 60
+  arguments:
+    - --input
+    - s3a://raw/orders/dt=2026-07-10/*.json
+    - --table
+    - lakehouse.dws.sku_sales_daily
+    - --date
+    - "2026-07-10"
+  sparkConf:
+    spark.sql.catalog.lakehouse: org.apache.iceberg.spark.SparkCatalog
+    spark.sql.catalog.lakehouse.type: rest
+    spark.sql.catalog.lakehouse.uri: http://iceberg-rest.data:8181
+    spark.sql.catalog.lakehouse.warehouse: s3://lakehouse/warehouse
+  deps:
+    packages:
+      - org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.0
+  driver:
+    cores: 1
+    memory: 2g
+    serviceAccount: spark
+  executor:
+    instances: 3
+    cores: 2
+    memory: 4g

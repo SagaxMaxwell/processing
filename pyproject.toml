@@ -1,9 +1,7 @@
 [project]
 name = "processing"
 version = "0.1.0"
-description = "Add your description here"
+description = "Modern data processing examples with Kafka, CDC, Spark, Flink, Iceberg, and Kubernetes."
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = [
-    "pytest>=9.0.3",
-]
+requires-python = ">=3.10"
+dependencies = []

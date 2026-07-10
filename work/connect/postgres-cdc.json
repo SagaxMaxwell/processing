@@ -1,0 +1,22 @@
+{
+  "name": "orders-postgres-cdc",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "connect",
+    "database.password": "${file:/opt/connect/secrets/postgres.properties:password}",
+    "database.dbname": "orders",
+    "topic.prefix": "cdc.orders",
+    "schema.include.list": "public",
+    "table.include.list": "public.orders,public.payments",
+    "slot.name": "orders_cdc",
+    "publication.name": "orders_publication",
+    "snapshot.mode": "initial",
+    "tombstones.on.delete": "false",
+    "decimal.handling.mode": "double",
+    "time.precision.mode": "connect"
+  }
+}
