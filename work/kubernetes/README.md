@@ -1,4 +1,4 @@
-# Spark on Kubernetes
+# Kubernetes 上的 Spark
 
 `sparkapp.yaml` 用 Spark Operator 提交 SKU 日销量任务。
 

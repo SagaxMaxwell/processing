@@ -1,6 +1,6 @@
-# Kafka 事件总线
+# Kafka 事件
 
-`producer.py` 发送交易事件，`consumer.py` 打印高金额和支付失败告警。
+`producer.py` 发送交易事件；`consumer.py` 输出大额和支付失败告警。
 
 ```bash
 uv add confluent-kafka
