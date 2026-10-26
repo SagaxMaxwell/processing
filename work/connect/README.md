@@ -1,3 +1,8 @@
+---
+date created: 2026-07-10T15:32
+date updated: 2026-10-26T13:17
+---
+
 # PostgreSQL CDC
 
 Debezium 将 PostgreSQL 订单和支付表写入 Kafka。
